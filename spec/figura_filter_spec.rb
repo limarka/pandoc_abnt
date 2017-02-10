@@ -87,7 +87,6 @@ TREE
       let(:expected_tree){"[{\"unMeta\":{}},[{\"t\":\"RawBlock\",\"c\":[\"latex\",\"\\\\begin{figure}[htbp]\\n\\\\caption{Legenda da figura}\\\\label{id}\\n\\\\begin{center}\\n\\\\includegraphics[width=0.30000\\\\textwidth]{imagem.png}\\n\\\\end{center}\\n\\\\legend{Fonte: Autor}\\n\\\\end{figure}\\n\"]}]]"}
       it "Retorna árvore com código latex incluído" do
         ff = PandocAbnt::FiguraFilter.new
-        byebug
         filtrado = ff.filtra_json(original_json_tree)
         expect(filtrado).to eq(expected_tree)
       end
