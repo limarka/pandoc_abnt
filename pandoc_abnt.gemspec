@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["eduardo.ufpb@gmail.com"]
 
   spec.summary       = %q{Filtro pandoc para converter conteúdos para as Normas da ABNT}
+  spec.description   = %q{Adiciona fontes à Imagens e Tabelas.}
   spec.homepage      = "https://github.com/edusantana/pandoc_abnt"
   spec.license       = "MIT"
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
