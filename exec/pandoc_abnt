@@ -9,5 +9,7 @@ require 'json'
 
 data = JSON.parse(STDIN.read)
 
-$stdout << data.to_json
+ff = PandocAbnt::FiguraFilter.new
+
+$stdout << ff.filtra_json(data)
 
