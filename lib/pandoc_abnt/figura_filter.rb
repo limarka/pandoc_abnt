@@ -1,4 +1,5 @@
 require 'json'
+require 'open3'
 
 module PandocAbnt
 
@@ -7,10 +8,8 @@ module PandocAbnt
   class FiguraFilter
 
     def reformata_figura_latex(latex_code, fonte)
-
     image_regex = /\\includegraphics.*/
     caption_regex = /\\caption.*/
-    
     
     figura_abntex = <<LATEX
 \\begin{figure}[htbp]
@@ -18,7 +17,7 @@ module PandocAbnt
 \\begin{center}
 #{latex_code.match image_regex}
 \\end{center}
-\\legend{#{fonte}}
+\\legend{#{fonte.strip}}
 \\end{figure}
 LATEX
     end
@@ -36,7 +35,18 @@ LATEX
       node["t"] == "Para" and node["c"][0]["t"] == "Image"
     end
 
+    # Converte node para latex
     def convert_to_latex(node)
+      latex_code = nil
+      Open3.popen3("pandoc -f json -t latex --wrap=none") {|stdin, stdout, stderr, wait_thr|
+        stdin.write(node.to_json)
+        stdin.close  # stdin, stdout and stderr should be closed explicitly in this form.
+        latex_code = stdout.read
+
+        pid = wait_thr.pid # pid of the started process.
+        exit_status = wait_thr.value # Process::Status object returned.
+      }
+      latex_code
     end
 
     def filtra_json(pandoc_json_tree)
@@ -50,17 +60,9 @@ LATEX
       tree[1].each do |node|
         
         if (fonte?(node) and imagem?(anterior)) then
-          imagem_latex = convert_to_latex(anterior)
-          fonte_latex = convert_to_latex(node)
-          texcode = <<TEX
-\\begin{figure}[htbp]
-\\caption{Legenda da figura}\\label{id}
-\\begin{center}
-\\includegraphics[width=0.30000\\textwidth]{imagem.png}
-\\end{center}
-\\legend{Fonte: Autor}
-\\end{figure}
-TEX
+          imagem_latex = convert_to_latex([meta,[anterior]])
+          fonte_latex = convert_to_latex([meta,[node]])
+          texcode = reformata_figura_latex(imagem_latex, fonte_latex)
           raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode]}
           
           filtrados.pop # remote o anterior

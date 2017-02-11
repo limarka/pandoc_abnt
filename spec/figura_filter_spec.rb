@@ -35,6 +35,17 @@ LATEX
   
   end
 
+  describe "#convert_to_latex" do
+    let(:input){"spec/fixtures/files/imagem.json"}
+    let(:output){"spec/fixtures/files/imagem.tex"}
+
+    it "converte json-pandoc hash passado para latex" do
+      json_hash_code = JSON.parse(IO.read(input)) 
+      ff = PandocAbnt::FiguraFilter.new
+      latex_code = ff.convert_to_latex(json_hash_code)
+      expect(latex_code).to eq(IO.read(output))
+    end
+  end
 
   describe "#fonte?" do
     context "quando nó contem parágrafo com fonte" do
@@ -74,21 +85,12 @@ LATEX
 
   describe "#filtra_json" do
     context "figura com título, tamanho e id, fonte separado por parágrafo" do
-      let(:markdown_code){<<TEXT
-![Título](imagem.png){#id width=30%}
-
-Fonte: Autor.
-TEXT
-}
-      let(:original_json_tree){<<TREE
-[{"unMeta":{}},[{"t":"Para","c":[{"t":"Image","c":[["id",[],[["width","30%"]]],[{"t":"Str","c":"Título"}],["imagem.png","fig:"]]}]},{"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}]]
-TREE
-}
-      let(:expected_tree){"[{\"unMeta\":{}},[{\"t\":\"RawBlock\",\"c\":[\"latex\",\"\\\\begin{figure}[htbp]\\n\\\\caption{Legenda da figura}\\\\label{id}\\n\\\\begin{center}\\n\\\\includegraphics[width=0.30000\\\\textwidth]{imagem.png}\\n\\\\end{center}\\n\\\\legend{Fonte: Autor}\\n\\\\end{figure}\\n\"]}]]"}
-      it "Retorna árvore com código latex incluído" do
+      let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte.original.json"}
+      let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte.output.json"}
+      it "Retorna árvore com código abntex2 incluído" do
         ff = PandocAbnt::FiguraFilter.new
-        filtrado = ff.filtra_json(original_json_tree)
-        expect(filtrado).to eq(expected_tree)
+        filtrado = ff.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
       end
     end
   end
