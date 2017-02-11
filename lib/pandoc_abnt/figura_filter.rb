@@ -53,20 +53,22 @@ LATEX
       # Exemplo de código:
       # [{"unMeta":{}},[{"t":"Para","c":[{"t":"Image","c":[["id",[],[["width","30%"]]],[{"t":"Str","c":"Título"}],["imagem.png","fig:"]]}]},{"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}]]
       tree = JSON.parse(pandoc_json_tree)
-      meta = tree[0]
+      meta = tree["meta"]
+      blocks = tree["blocks"]
+      api = tree["pandoc-api-version"]
       
       filtrados = []
       anterior = nil
       
-      if not tree[1]
+      if not blocks
         raise ArgumentError, "Problema no argumento passado: #{pandoc_json_tree}"
       end
       
-      tree[1].each do |node|
+      blocks.each do |node|
         
         if (fonte?(node) and imagem?(anterior)) then
-          imagem_latex = convert_to_latex([meta,[anterior]])
-          fonte_latex = convert_to_latex([meta,[node]])
+          imagem_latex = convert_to_latex({"blocks"=>[anterior], "pandoc-api-version" => api, "meta" => meta})
+          fonte_latex = convert_to_latex({"blocks"=>[node], "pandoc-api-version" => api, "meta" => meta})
           texcode = reformata_figura_latex(imagem_latex, fonte_latex)
           raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode]}
           
@@ -79,7 +81,7 @@ LATEX
         anterior = node
       end
        
-      JSON.generate([meta,filtrados])
+      JSON.generate({"blocks"=>filtrados, "pandoc-api-version" => api, "meta" => meta})
       
       
 #      result = <<-LATEX [{"unMeta":{}},[{"t":"RawBlock","c":["latex","\\begin{figure}[htbp]\n\\caption{Legenda da figura}\\label{id}\n\\begin{center}\n\\includegraphics[width=0.30000\\textwidth]{imagem.png}\n\\end{center}\n\\legend{Fonte: Autor.}\n\\end{figure}"]}]]

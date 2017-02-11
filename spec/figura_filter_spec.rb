@@ -83,7 +83,7 @@ LATEX
   end
 
 
-  describe "#filtra_json" do
+  describe "#filtra_json", :filtra_json do
     context "figura com título, tamanho e id, fonte separado por parágrafo" do
       let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte.original.json"}
       let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte.output.json"}
