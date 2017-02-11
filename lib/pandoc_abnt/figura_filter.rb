@@ -57,6 +57,11 @@ LATEX
       
       filtrados = []
       anterior = nil
+      
+      if not tree[1]
+        raise ArgumentError, "Problema no argumento passado: #{pandoc_json_tree}"
+      end
+      
       tree[1].each do |node|
         
         if (fonte?(node) and imagem?(anterior)) then
