@@ -21,6 +21,8 @@ Or install it yourself as:
 
     $ gem install pandoc_abnt
 
+Requer pandoc `v1.19.2.1`.
+
 ## Usage
 
 TODO: Write usage instructions here
