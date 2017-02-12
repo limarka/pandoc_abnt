@@ -22,6 +22,14 @@ module PandocAbnt
 LATEX
     end
     
+    def reformata_tabela_latex(latex_code, fonte)
+      inicio = latex_code.lines[0..-2].join ""
+      abntex_code = <<LATEX
+#{inicio}\\caption*{#{fonte.strip}}
+\\end{longtable}
+LATEX
+    end
+    
     # Verifica se node é um parágrafo que inicia com "Fonte:"
     def fonte?(node)
     # {"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}
@@ -34,6 +42,13 @@ LATEX
 
       node["t"] == "Para" and node["c"][0]["t"] == "Image"
     end
+
+    # Verifica se node é uma tabela
+    def tabela?(node)
+    # {"t":"Table","c":[[{"t":"Str","c":"Demonstration"},{"t":"Space"},{"t":"Str","c":"of"},{"t":"Space"},{"t":"Str","c":"simple"},{"t":"Space"},{"t":"Str","c":"table"},{"t":"Space"},{"t":"Str","c":"syntax."},{"t":"Space"},{"t":"RawInline","c":["tex","\\label{mytable}"]}],[{"t":"AlignRight"},{"t":"AlignLeft"},{"t":"AlignCenter"},{"t":"AlignDefault"}],[0,0,0,0],[[{"t":"Plain","c":[{"t":"Str","c":"Right"}]}],[{"t":"Plain","c":[{"t":"Str","c":"Left"}]}],[{"t":"Plain","c":[{"t":"Str","c":"Center"}]}],[{"t":"Plain","c":[{"t":"Str","c":"Default"}]}]],[[[{"t":"Plain","c":[{"t":"Str","c":"12"}]}],[{"t":"Plain","c":[{"t":"Str","c":"12"}]}],[{"t":"Plain","c":[{"t":"Str","c":"12"}]}],[{"t":"Plain","c":[{"t":"Str","c":"12"}]}]],[[{"t":"Plain","c":[{"t":"Str","c":"123"}]}],[{"t":"Plain","c":[{"t":"Str","c":"123"}]}],[{"t":"Plain","c":[{"t":"Str","c":"123"}]}],[{"t":"Plain","c":[{"t":"Str","c":"123"}]}]],[[{"t":"Plain","c":[{"t":"Str","c":"1"}]}],[{"t":"Plain","c":[{"t":"Str","c":"1"}]}],[{"t":"Plain","c":[{"t":"Str","c":"1"}]}],[{"t":"Plain","c":[{"t":"Str","c":"1"}]}]]]]}
+      node["t"] == "Table"
+    end
+
 
     # Converte node para latex
     def convert_to_latex(node)
@@ -71,6 +86,14 @@ LATEX
           fonte_latex = convert_to_latex({"blocks"=>[node], "pandoc-api-version" => api, "meta" => meta})
           texcode = reformata_figura_latex(imagem_latex, fonte_latex)
           raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode]}
+          
+          filtrados.pop # remote o anterior
+          filtrados << raw_tex
+        elsif (fonte?(node) and tabela?(anterior)) then
+          tabela_latex = convert_to_latex({"blocks"=>[anterior], "pandoc-api-version" => api, "meta" => meta})
+          fonte_latex = convert_to_latex({"blocks"=>[node], "pandoc-api-version" => api, "meta" => meta})
+          texcode = reformata_tabela_latex(tabela_latex, fonte_latex)
+          raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode.strip]}
           
           filtrados.pop # remote o anterior
           filtrados << raw_tex

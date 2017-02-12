@@ -35,6 +35,26 @@ LATEX
   
   end
 
+
+  describe "#reformata_tabela_latex", :tabela do
+  
+    context "quando figura possui caption" do
+      let(:input){"spec/fixtures/files/tabelas/simple_tables-with-footnote.tabela-pandoc.tex"}
+      let(:output){"spec/fixtures/files/tabelas/simple_tables-with-footnote.abntex.tex"}
+      let(:fonte){"Fonte: Autor."}
+      it "insere a fonte na tabela" do
+        ff = PandocAbnt::FiguraFilter.new
+        latex_abnt = ff.reformata_tabela_latex(IO.read(input),fonte)
+        experado = IO.read(output)
+        byebug
+        expect(latex_abnt).to include(IO.read(output))
+      end
+    end
+  
+  end
+
+
+
   describe "#convert_to_latex" do
     let(:input){"spec/fixtures/files/imagem.json"}
     let(:output){"spec/fixtures/files/imagem.tex"}
@@ -83,10 +103,38 @@ LATEX
   end
 
 
+  describe "#tabela?", :tabela do
+    context "quando nó contem tabela" do
+      let(:node){{"t"=>"Table", "c"=>nil}}
+      it "returna true" do
+        ff = PandocAbnt::FiguraFilter.new
+        expect(ff.tabela?(node)).to be true
+      end
+    end
+    context "quando nó contem parágrafo texto" do
+      let(:node){{"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}}
+      it "returna false" do
+        ff = PandocAbnt::FiguraFilter.new
+        expect(ff.tabela?(node)).to be false
+      end
+    end
+  end
+
+
   describe "#filtra_json", :filtra_json do
     context "figura com título, tamanho e id, fonte separado por parágrafo" do
       let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte.original.json"}
       let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte.output.json"}
+      it "Retorna árvore com código abntex2 incluído" do
+        ff = PandocAbnt::FiguraFilter.new
+        filtrado = ff.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
+      end
+    end
+
+    context "Tabela com título, id e fonte separado por parágrafo", :tabela do
+      let(:input){"spec/fixtures/files/tabelas/simple_tables-with-footnote.pandoc.json"}
+      let(:output){"spec/fixtures/files/tabelas/simple_tables-with-footnote.abntex.json"}
       it "Retorna árvore com código abntex2 incluído" do
         ff = PandocAbnt::FiguraFilter.new
         filtrado = ff.filtra_json(IO.read(input))
