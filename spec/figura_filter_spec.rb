@@ -45,8 +45,6 @@ LATEX
       it "insere a fonte na tabela" do
         ff = PandocAbnt::FiguraFilter.new
         latex_abnt = ff.reformata_tabela_latex(IO.read(input),fonte)
-        experado = IO.read(output)
-        byebug
         expect(latex_abnt).to include(IO.read(output))
       end
     end
@@ -122,7 +120,7 @@ LATEX
 
 
   describe "#filtra_json", :filtra_json do
-    context "figura com título, tamanho e id, fonte separado por parágrafo" do
+    context "figura com título, tamanho e id, fonte separado por parágrafo", :figura do
       let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte.original.json"}
       let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte.output.json"}
       it "Retorna árvore com código abntex2 incluído" do
