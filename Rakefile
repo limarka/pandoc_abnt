@@ -43,8 +43,9 @@ task :fixtures do
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
 
-    
-    
+    original = "lista-nao-ordenada-mix.md"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
     
     #system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.tex')}"
     # criar original.ext('.pandoc-tabela.tex') : Código latex da tabela que será formatada (remove a fonte de pandoc.tex)
