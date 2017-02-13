@@ -35,6 +35,15 @@ task :fixtures do
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
 
+    original = "lista-numerica-termiando-com-ponto-e-virgula-mix.md"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
+
+    original = "lista-letras-separada-por-ponto-mix.md"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
+
+    
     
     
     #system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.tex')}"

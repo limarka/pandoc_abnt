@@ -25,8 +25,12 @@ module PandocAbnt
       latex_code
     end
 
+
     def processa_items_da_lista(lista)
       # lista["c"][0]: [1,{"t":"LowerAlpha"},{"t":"OneParen"}]
+
+      utiliza_parenteses!(lista) if utiliza_ponto?(lista)
+
       itens = lista["c"][1]
 #      byebug
       itens.each do |item|
@@ -100,7 +104,16 @@ module PandocAbnt
       def ultimo_tolken_do_item(item)
       # [{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"1."}]}]
       item[0]["c"].last if item[0]["t"] == "Plain"
-    end
+      end
+    
+      def utiliza_ponto?(lista)
+        # lista["c"][0]: [1,{"t":"LowerAlpha"},{"t":"Period"}]
+        lista["c"][0][2]["t"] == "Period"
+      end
+
+      def utiliza_parenteses!(lista)
+        lista["c"][0][2]["t"] = "OneParen"
+      end
 
   end
 end
