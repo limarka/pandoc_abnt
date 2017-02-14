@@ -61,9 +61,90 @@ Você pode utilizar [qualquer uma das sintaxes de tabela suportadas pelo pandoc]
 
 **OBS**: O comando `\label{}` é necessário para permitir refenciar a tabela no Latex.
 
-### Correção de listas
+### Alíneas
 
-A ABNT especifica que o texto das seções podem ser divididos em *Alíneas*, na prática 
+A ABNT especifica que o texto das seções podem ser divididos em *Alíneas*, na prática você PODE utilizar uma lista ordenada por letras para separar o conteúdo de uma seção:
+
+```markdown
+a) primeira alínea;
+
+    Texto dentro da primeira alínea.
+
+b) segunda alínea;
+
+    Texto dentro da segunda alínea.
+
+    Mais texto dentro da segunda alínea.
+
+c) terceira alínea;
+
+    Texto dentro da terceira alínea.
+
+d) qualquer coisac.
+
+    Texto dentro da quarta alínea.
+
+Texto fora das alíneas.
+```
+
+O pandoc_abnt implementa as seguintes funcionalidas:
+
+- Adiciona o parêntese automaticamente, caso tenha utilizado ponto: `a. -> a)`
+- Adiciona o `;` em todas as alíneas, menos a última, que finaliza com ponto `.`. Mesmo que você que você tenha colocado a pontuação errada.
+- Aplica letra minúscula no início das alíneas automaticamente.
+
+A alínea a seguir estaria em não conformidade com as Normas da ABNT (NBR 6024:2012). No entanto, o pandoc_abnt ajusta automaticamente para obter o resultado da alínea apresentada anteriormenete, elas são equivalentes:
+
+```markdown
+a. Primeira alínea
+
+    Texto dentro da primeira alínea.
+
+b. Segunda alínea
+
+    Texto dentro da segunda alínea.
+
+    Mais texto dentro da segunda alínea.
+
+c. Terceira alínea.
+
+    Texto dentro da terceira alínea.
+
+d. Qualquer coisac;
+
+    Texto dentro da quarta alínea.
+
+Texto fora das alíneas.
+```
+
+**OBS**: Perceba que existem *4 espaços em branco* indentado os parágrafos dentro das alíneas.
+
+### Pontuação das listas
+
+De forma semelhante as pontuações das listas são inseridas automaticamente:
+
+```markdown
+- Abacate
+- Banana
+- Côco
+```
+
+Será automaticamente corrigido para:
+
+```markdown
+- abacate;
+- banana;
+- côco.
+```
+
+Para manter a primeira letra da lista em maiúsculo, deve-se utilizar um *nonbreaking space*:
+
+```markdown
+- \ Alberto
+- \ Bernadete
+- \ Charles
+```
+
 
 ## Development
 
