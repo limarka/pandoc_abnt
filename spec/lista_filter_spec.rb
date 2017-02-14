@@ -88,6 +88,15 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
+    context "Lista não ordenada terminada com letra", :lista, :wip do
+      let(:input){"#{dir}/lista-nao-ordenada-terminando-com-letra-mix.pandoc.json"}
+      let(:output){"#{dir}/lista-nao-ordenada-terminando-com-letra-mix.transformacao-esperada.json"}
+      it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
+        f = PandocAbnt::ListaFilter.new
+        filtrado = f.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
+      end
+    end
 
 
   end

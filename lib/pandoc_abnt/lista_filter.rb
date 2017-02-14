@@ -81,6 +81,8 @@ module PandocAbnt
             str = last_token["c"]
             if str.end_with?(";") then
               last_token["c"] = str.gsub(/;$/,'.')
+            elsif /[[:alnum:]]$/ =~ str
+              last_token["c"] << '.'
             end
           end
         else
