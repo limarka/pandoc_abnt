@@ -87,6 +87,8 @@ d) qualquer coisac.
 Texto fora das alíneas.
 ```
 
+**OBS**: Perceba que existem *4 espaços em branco* indentado os parágrafos dentro das alíneas.
+
 O pandoc_abnt implementa as seguintes funcionalidas:
 
 - Adiciona o parêntese automaticamente, caso tenha utilizado ponto: `a. -> a)`
@@ -116,8 +118,6 @@ d. Qualquer coisac;
 
 Texto fora das alíneas.
 ```
-
-**OBS**: Perceba que existem *4 espaços em branco* indentado os parágrafos dentro das alíneas.
 
 ### Pontuação das listas
 
