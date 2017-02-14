@@ -4,10 +4,9 @@
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
-
 require 'pandoc_abnt'
 
-ff = PandocAbnt::FiguraFilter.new
+figura_filtradas = PandocAbnt::FiguraFilter.new.filtra_json(STDIN.read)
 
-$stdout << ff.filtra_json(STDIN.read)
+$stdout << PandocAbnt::ListaFilter.new.filtra_json(figura_filtradas)
 

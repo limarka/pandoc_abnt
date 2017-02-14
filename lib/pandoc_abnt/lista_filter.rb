@@ -77,6 +77,7 @@ module PandocAbnt
         if item == itens.last then
           # adiciona ou troca último caracter (';') para ponto final
           last_token = ultimo_tolken_do_item(lista, item)
+          next unless last_token
           if last_token["t"] == "Str" then
             str = last_token["c"]
             if str.end_with?(";") then
@@ -88,6 +89,7 @@ module PandocAbnt
         else
         # itens internos, troca . por ';'
           last_token = ultimo_tolken_do_item(lista, item)
+          next unless last_token
           if last_token["t"] == "Str" then
             str = last_token["c"]
             if str.end_with?(".") then
