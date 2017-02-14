@@ -78,7 +78,7 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista não ordenada", :lista, :wip do
+    context "Lista não ordenada", :lista do
       let(:input){"#{dir}/lista-nao-ordenada-mix.pandoc.json"}
       let(:output){"#{dir}/lista-nao-ordenada-mix.transformacao-esperada.json"}
       it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
@@ -88,7 +88,7 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista não ordenada terminada com letra", :lista, :wip do
+    context "Lista não ordenada terminada com letra", :lista do
       let(:input){"#{dir}/lista-nao-ordenada-terminando-com-letra-mix.pandoc.json"}
       let(:output){"#{dir}/lista-nao-ordenada-terminando-com-letra-mix.transformacao-esperada.json"}
       it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
@@ -97,6 +97,19 @@ describe PandocAbnt::ListaFilter do
         expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
       end
     end
+
+    context "Alíneas com texto digitado identado na lista", :lista, :alinea, :wip do
+      let(:input){"#{dir}/alineas-texto-identado.pandoc.json"}
+      let(:output){"#{dir}/alineas-texto-identado.transformacao-esperada.json"}
+      it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
+        f = PandocAbnt::ListaFilter.new
+        filtrado = f.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
+      end
+    end
+
+
+
 
 
   end

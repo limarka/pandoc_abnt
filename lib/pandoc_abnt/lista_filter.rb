@@ -73,8 +73,15 @@ module PandocAbnt
       itens = lista["c"] if lista_nao_ordenada?(lista)
 #      byebug
       itens.each do |item|
+      
         # último item da lista
         if item == itens.last then
+          # troca primeira letra por minúsculo
+          first_token = primeiro_tolken_do_item(lista, item)
+          if first_token["t"] == "Str" then
+            first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
+          end
+
           # adiciona ou troca último caracter (';') para ponto final
           last_token = ultimo_tolken_do_item(lista, item)
           next unless last_token
@@ -87,7 +94,14 @@ module PandocAbnt
             end
           end
         else
-        # itens internos, troca . por ';'
+          #byebug
+          # troca primeira letra por minúsculo
+          first_token = primeiro_tolken_do_item(lista, item)
+          if first_token["t"] == "Str" then
+            first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
+          end
+
+          # itens internos, troca . por ';'
           last_token = ultimo_tolken_do_item(lista, item)
           next unless last_token
           if last_token["t"] == "Str" then
@@ -106,10 +120,21 @@ module PandocAbnt
     end
 
 
+      def primeiro_tolken_do_item(lista, item)
+      # [{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"1."}]}]
+        if lista_ordenada?(lista) and (item[0]["t"] == "Plain" or item[0]["t"] == "Para") then
+          item[0]["c"].first
+        elsif lista_nao_ordenada?(lista)
+          item[0]["c"].first
+        else
+          nil
+        end
+      end
+
 
       def ultimo_tolken_do_item(lista, item)
       # [{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"1."}]}]
-        if lista_ordenada?(lista) and item[0]["t"] == "Plain" then
+        if lista_ordenada?(lista) and (item[0]["t"] == "Plain" or item[0]["t"] == "Para") then
           item[0]["c"].last
         elsif lista_nao_ordenada?(lista)
           item[0]["c"].last
