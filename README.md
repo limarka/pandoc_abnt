@@ -25,7 +25,45 @@ Requer pandoc `v1.19.2.1`.
 
 ## Usage
 
-TODO: Write usage instructions here
+O pandoc_abnt foi elaborado para ser utilizado com o [limarka](https://github.com/abntex/limarka), mas projetado para ser utilizado separadamente:
+
+    pandoc --wrap=none --filter exe/pandoc_abnt documento.md -o documento.pdf
+
+## Funcionalidades
+
+### Fonte de Figuras e Tabelas
+
+Para adicionar uma fonte a figura ou tabela, basta adicionar no parágrafo seguinte: `Fonte: texto da fonte`. 
+
+Exemplo de Figura:
+
+```markdown
+![Título](imagem.png){#id width=30%}
+
+Fonte: Autor.
+```
+
+Exemplo de Tabela:
+
+```
+  Right     Left     Center     Default
+-------     ------ ----------   -------
+     12     12        12            12
+    123     123       123          123
+      1     1          1             1
+
+: Demonstration of simple table syntax. \label{mytable}
+
+Fonte: Autor.
+```
+
+Você pode utilizar [qualquer uma das sintaxes de tabela suportadas pelo pandoc](http://pandoc.org/MANUAL.html#tables).
+
+**OBS**: O comando `\label{}` é necessário para permitir refenciar a tabela no Latex.
+
+### Correção de listas
+
+A ABNT especifica que o texto das seções podem ser divididos em *Alíneas*, na prática 
 
 ## Development
 

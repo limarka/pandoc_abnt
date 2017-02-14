@@ -23,8 +23,13 @@ a. Lista ordenada1
 a. Lista ordenada2
 a. Lista ordenada3
 
+# Alíneas
 
-Outra lista
+Esta seção possui as seguintes alíneas:
+
+a) Primeira alínea
+
+Texto da alínea.
 
 b) Qualquer coisab
 

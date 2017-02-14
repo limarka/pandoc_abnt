@@ -81,7 +81,7 @@ a. Lista ordenada3
       expect(@abntex_code).to include("ordenada1;")
       expect(@abntex_code).to include("ordenada2;")
       expect(@abntex_code).to include("ordenada3.")
-      
+      #expect(@abntex_code).to include("a) Primeira alínea")
     end
   end
 
