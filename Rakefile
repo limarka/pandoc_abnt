@@ -51,18 +51,15 @@ task :fixtures do
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
 
-
-    original = "alineas-texto-identado.md"
+    original = "lista-maiusculo.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
 
-    
-    
-    
-    #system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.tex')}"
-    # criar original.ext('.pandoc-tabela.tex') : Código latex da tabela que será formatada (remove a fonte de pandoc.tex)
-    # criar original.ext('.abntex.tex') : Código esperado para o arquivo final (inclui fonte como legenda)
-    #system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.abntex.tex')} -o #{original.ext('.abntex.json')}"
+    original = "alineas-texto-sem-indentado.md"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
+    system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
+
+
   end
   
 end

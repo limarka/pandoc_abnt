@@ -1,3 +1,3 @@
-- primeiro item.
-- segundo item
-- terceiro item;
+- Primeiro item.
+- Segundo item
+- Terceiro item;

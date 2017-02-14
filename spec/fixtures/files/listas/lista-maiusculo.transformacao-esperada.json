@@ -1,0 +1,1 @@
+{"blocks":[{"t":"BulletList","c":[[{"t":"Plain","c":[{"t":"Str","c":" Primeiro"},{"t":"Space"},{"t":"Str","c":"item;"}]}],[{"t":"Plain","c":[{"t":"Str","c":" Segundo"},{"t":"Space"},{"t":"Str","c":"item;"}]}],[{"t":"Plain","c":[{"t":"Str","c":" Terceiro"},{"t":"Space"},{"t":"Str","c":"item."}]}]]}],"pandoc-api-version":[1,17,0,4],"meta":{}}

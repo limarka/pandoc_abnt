@@ -81,7 +81,9 @@ module PandocAbnt
           if first_token["t"] == "Str" then
             first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
           end
-
+          
+          next if item_solitario(itens)
+          
           # adiciona ou troca último caracter (';') para ponto final
           last_token = ultimo_tolken_do_item(lista, item)
           next unless last_token
@@ -131,6 +133,9 @@ module PandocAbnt
         end
       end
 
+      def item_solitario(itens)
+        itens.size == 1
+      end
 
       def ultimo_tolken_do_item(lista, item)
       # [{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"1."}]}]

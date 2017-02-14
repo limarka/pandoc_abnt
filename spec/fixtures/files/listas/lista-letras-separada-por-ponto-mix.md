@@ -1,3 +1,3 @@
-a. item 1.
-b. item 2;
-c. item 3;
+a. Item 1.
+b. Item 2;
+c. Item 3;

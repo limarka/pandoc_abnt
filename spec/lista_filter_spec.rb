@@ -5,7 +5,7 @@ require "json"
 describe PandocAbnt::ListaFilter do
 
 
-  describe "#lista?", :lista do
+  describe "#lista?" do
     context "quando lista ordenada com letras" do
       let(:input){"spec/fixtures/files/listas/lista-letras-termiando-com-ponto.pandoc.json"}
       it "returna true" do
@@ -26,10 +26,10 @@ describe PandocAbnt::ListaFilter do
 
   describe "#filtra_json", :filtra_json do
     let(:dir){"spec/fixtures/files/listas"}
-      
-    context "Lista ordenada com letras e terminando com '.'", :lista do
+    let(:output){dir + '/' + File.basename(input, '.pandoc.json') + '.transformacao-esperada.json'}
+          
+    context "Lista ordenada com letras e terminando com '.'" do
       let(:input){"#{dir}/lista-letras-termiando-com-ponto.pandoc.json"}
-      let(:output){"#{dir}/lista-letras-termiando-com-ponto.transformacao-esperada.json"}
       it "Substitui o ponto por ';' e mantem ponto no último item" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -37,9 +37,8 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista ordenada com letras e terminando com ';'", :lista do
+    context "Lista ordenada com letras e terminando com ';'" do
       let(:input){"#{dir}/lista-letras-termiando-com-ponto-e-virgula.pandoc.json"}
-      let(:output){"#{dir}/lista-letras-termiando-com-ponto-e-virgula.transformacao-esperada.json"}
       it "Substitui apenas o último ';' por ponto" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -48,9 +47,8 @@ describe PandocAbnt::ListaFilter do
     end
 
 
-    context "Lista ordenada com letras e itens finalizando com '.' e ';'", :lista do
+    context "Lista ordenada com letras e itens finalizando com '.' e ';'" do
       let(:input){"#{dir}/lista-letras-termiando-com-ponto-e-virgula-mix.pandoc.json"}
-      let(:output){"#{dir}/lista-letras-termiando-com-ponto-e-virgula-mix.transformacao-esperada.json"}
       it "Troca todos internos termiando com '.' para ';' e finaliza o último com '.'" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -58,9 +56,8 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista numerica com letras e itens finalizando com '.' e ';'", :lista do
+    context "Lista numerica com letras e itens finalizando com '.' e ';'" do
       let(:input){"#{dir}/lista-numerica-termiando-com-ponto-e-virgula-mix.pandoc.json"}
-      let(:output){"#{dir}/lista-numerica-termiando-com-ponto-e-virgula-mix.transformacao-esperada.json"}
       it "Troca todos internos termiando com '.' para ';' e finaliza o último com '.'" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -68,9 +65,8 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista que utiliza letras e separadas por ponto em vez de parenteses, ex: a.", :lista do
+    context "Lista que utiliza letras e separadas por ponto em vez de parenteses, ex: a." do
       let(:input){"#{dir}/lista-letras-separada-por-ponto-mix.pandoc.json"}
-      let(:output){"#{dir}/lista-letras-separada-por-ponto-mix.transformacao-esperada.json"}
       it "Troca todos internos termiando com '.' para ';' e finaliza o último com '.'" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -78,9 +74,8 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista não ordenada", :lista do
+    context "Lista não ordenada" do
       let(:input){"#{dir}/lista-nao-ordenada-mix.pandoc.json"}
-      let(:output){"#{dir}/lista-nao-ordenada-mix.transformacao-esperada.json"}
       it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -88,9 +83,8 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista não ordenada terminada com letra", :lista do
+    context "Lista não ordenada terminada com letra" do
       let(:input){"#{dir}/lista-nao-ordenada-terminando-com-letra-mix.pandoc.json"}
-      let(:output){"#{dir}/lista-nao-ordenada-terminando-com-letra-mix.transformacao-esperada.json"}
       it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -98,9 +92,17 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Alíneas com texto digitado identado na lista", :lista, :alinea, :wip do
-      let(:input){"#{dir}/alineas-texto-identado.pandoc.json"}
-      let(:output){"#{dir}/alineas-texto-identado.transformacao-esperada.json"}
+    context "Lista necessitando iniciar com Maiúsculo escritas com nonbreaking space" do
+      let(:input){"#{dir}/lista-maiusculo.pandoc.json"}
+      it "Mantém o case e adiciona pontuação necessária" do
+        f = PandocAbnt::ListaFilter.new
+        filtrado = f.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
+      end
+    end
+
+    context "Alíneas com texto digitado indentado na lista", :alinea do
+      let(:input){"#{dir}/alineas-texto-indentado.pandoc.json"}
       it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
         f = PandocAbnt::ListaFilter.new
         filtrado = f.filtra_json(IO.read(input))
@@ -108,9 +110,14 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-
-
-
+    context "Alíneas com texto digitado sem indentado", :alinea do
+      let(:input){"#{dir}/alineas-texto-sem-indentado.pandoc.json"}
+      it "Mantém a pontuação digita e corrige apenas o case das primeiras letras dos itens para minúsculo" do
+        f = PandocAbnt::ListaFilter.new
+        filtrado = f.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
+      end
+    end
 
   end
 
