@@ -27,7 +27,7 @@ Requer pandoc `v1.19.2.1`.
 
 O pandoc_abnt foi elaborado para ser utilizado com o [limarka](https://github.com/abntex/limarka), mas projetado para ser utilizado separadamente:
 
-    pandoc --wrap=none --filter exe/pandoc_abnt documento.md -o documento.pdf
+    pandoc --wrap=none -s --filter exe/pandoc_abnt documento.md -o documento.pdf
 
 ## Funcionalidades
 
