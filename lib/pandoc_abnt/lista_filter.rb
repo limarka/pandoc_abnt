@@ -78,7 +78,7 @@ module PandocAbnt
         if item == itens.last then
           # troca primeira letra por minúsculo
           first_token = primeiro_tolken_do_item(lista, item)
-          if first_token["t"] == "Str" then
+          if first_token["t"] == "Str" and not lista_nao_ordenada?(lista) then
             first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
           end
           
@@ -99,7 +99,7 @@ module PandocAbnt
           #byebug
           # troca primeira letra por minúsculo
           first_token = primeiro_tolken_do_item(lista, item)
-          if first_token["t"] == "Str" then
+          if first_token["t"] == "Str" and not lista_nao_ordenada?(lista) then
             first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
           end
 
