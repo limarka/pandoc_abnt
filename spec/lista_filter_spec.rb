@@ -78,7 +78,6 @@ describe PandocAbnt::ListaFilter do
       let(:input){"#{dir}/lista-nao-ordenada-mix.pandoc.json"}
       it "Corrige pontuação final adicionando ';' ou '.' quando necessário" do
         f = PandocAbnt::ListaFilter.new
-        byebug
         filtrado = f.filtra_json(IO.read(input))
         expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
       end
