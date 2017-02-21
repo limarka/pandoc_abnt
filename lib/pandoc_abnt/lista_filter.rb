@@ -20,6 +20,12 @@ module PandocAbnt
       def lista_nao_ordenada?(node)
         node["t"] == "BulletList"
       end
+      
+      def lista_ordenada_por_letras?(node)
+        # node: {"t"=>"OrderedList", "c"=>[[1, {"t"=>"LowerAlpha"}, {"t"=>"OneParen"}], [[{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"1."}]}], [{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"2."}]}], [{"t"=>"Plain", "c"=>[{"t"=>"Str", "c"=>"item"}, {"t"=>"Space"}, {"t"=>"Str", "c"=>"3."}]}]]]}
+        node["t"] == "OrderedList" and  node["c"][0][1]["t"]=="LowerAlpha"
+      end
+
 
 
     #
@@ -71,14 +77,13 @@ module PandocAbnt
 
       itens = lista["c"][1] if lista_ordenada?(lista)
       itens = lista["c"] if lista_nao_ordenada?(lista)
-#      byebug
       itens.each do |item|
       
         # último item da lista
         if item == itens.last then
           # troca primeira letra por minúsculo
           first_token = primeiro_tolken_do_item(lista, item)
-          if first_token["t"] == "Str" and not lista_nao_ordenada?(lista) then
+          if first_token["t"] == "Str" and lista_ordenada_por_letras?(lista) then
             first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
           end
           
@@ -96,10 +101,9 @@ module PandocAbnt
             end
           end
         else
-          #byebug
-          # troca primeira letra por minúsculo
+          # troca primeira letra por minúsculo em listas ordenadas por letra
           first_token = primeiro_tolken_do_item(lista, item)
-          if first_token["t"] == "Str" and not lista_nao_ordenada?(lista) then
+          if first_token["t"] == "Str" and lista_ordenada_por_letras?(lista) then
             first_token["c"] = first_token["c"].sub(/^[[:alpha:]]/) {|f| f.downcase }
           end
 
