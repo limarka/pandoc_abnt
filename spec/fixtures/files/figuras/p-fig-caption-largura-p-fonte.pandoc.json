@@ -1,0 +1,1 @@
+{"blocks":[{"t":"Para","c":[{"t":"Image","c":[["id",[],[["largura","30%"]]],[{"t":"Str","c":"Título"}],["imagem.png","fig:"]]}]},{"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space"},{"t":"Str","c":"Autor."}]}],"pandoc-api-version":[1,17,0,4],"meta":{}}

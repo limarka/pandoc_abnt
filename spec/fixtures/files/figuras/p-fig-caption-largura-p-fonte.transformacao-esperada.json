@@ -1,0 +1,1 @@
+{"blocks":[{"t":"RawBlock","c":["latex","\\begin{figure}[htbp]\n\\caption{Título}\\label{id}\n\\begin{center}\n\\includegraphics[width=0.30000\\textwidth]{imagem.png}\n\\end{center}\n\\legend{Fonte: Autor.}\n\\end{figure}\n"]}],"pandoc-api-version":[1,17,0,4],"meta":{}}

@@ -120,7 +120,7 @@ LATEX
 
 
   describe "#filtra_json", :filtra_json do
-    context "figura com título, tamanho e id, fonte separado por parágrafo", :figura do
+    context "figura com título, width e id, fonte separado por parágrafo", :figura do
       let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte.original.json"}
       let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte.output.json"}
       it "Retorna árvore com código abntex2 incluído" do
@@ -129,6 +129,17 @@ LATEX
         expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
       end
     end
+
+    context "figura com título, largura e id, fonte separado por parágrafo", :figura, :largura do
+      let(:input){"spec/fixtures/files/figuras/p-fig-caption-largura-p-fonte.pandoc.json"}
+      let(:output){"spec/fixtures/files/figuras/p-fig-caption-largura-p-fonte.transformacao-esperada.json"}
+      it "Retorna árvore com código abntex2 incluído como se tivesse especificado o width" do
+        ff = PandocAbnt::FiguraFilter.new
+        filtrado = ff.filtra_json(IO.read(input))
+        expect(JSON.pretty_generate(JSON.parse(filtrado))).to eq(JSON.pretty_generate(JSON.parse(IO.read(output))))
+      end
+    end
+
 
     context "Tabela com título, id e fonte separado por parágrafo", :tabela do
       let(:input){"spec/fixtures/files/tabelas/simple_tables-with-footnote.pandoc.json"}

@@ -64,6 +64,19 @@ LATEX
       latex_code
     end
 
+    def atualiza_imagem_width(node)
+      # {"t"=>"Para", "c"=>[{"t"=>"Image", "c"=>[["id", [], [["largura", "30%"]]], [{"t"=>"Str", "c"=>"Título"}], ["imagem.png", "fig:"]]}]}
+      # node["c"][0]["c"][2] << ["width","30%"]
+      atributos = node["c"][0]["c"][0][2]
+      atributos.each_with_index do |att, index|
+        if att[0] == "largura" then
+          atributos[index][0] = "width"
+          break
+        end
+      end
+      node
+    end
+
     def filtra_json(pandoc_json_tree)
       # Exemplo de código:
       # [{"unMeta":{}},[{"t":"Para","c":[{"t":"Image","c":[["id",[],[["width","30%"]]],[{"t":"Str","c":"Título"}],["imagem.png","fig:"]]}]},{"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}]]
@@ -82,7 +95,8 @@ LATEX
       blocks.each do |node|
         
         if (fonte?(node) and imagem?(anterior)) then
-          imagem_latex = convert_to_latex({"blocks"=>[anterior], "pandoc-api-version" => api, "meta" => meta})
+          image_node = atualiza_imagem_width(anterior)
+          imagem_latex = convert_to_latex({"blocks"=>[image_node], "pandoc-api-version" => api, "meta" => meta})
           fonte_latex = convert_to_latex({"blocks"=>[node], "pandoc-api-version" => api, "meta" => meta})
           texcode = reformata_figura_latex(imagem_latex, fonte_latex)
           raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode]}

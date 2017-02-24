@@ -7,6 +7,19 @@ task :default => :spec
 
 desc "Cria/recria as fixtures"
 task :fixtures do
+
+  Dir.chdir("spec/fixtures/files/figuras") do
+
+    originais = ["p-fig-caption-largura-p-fonte.md"]
+    originais.each do |original|
+      system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
+      system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
+    
+    end
+
+  end
+
+
   Dir.chdir("spec/fixtures/files/tabelas") do
 
     system "pandoc -f markdown+raw_tex simple_tables-with-footnote.md -o simple_tables-with-footnote.pandoc.json"
