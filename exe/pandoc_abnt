@@ -6,7 +6,9 @@ Encoding.default_internal = Encoding::UTF_8
 
 require 'pandoc_abnt'
 
-figura_filtradas = PandocAbnt::FiguraFilter.new.filtra_json(STDIN.read)
+quadros_filtrados = PandocAbnt::QuadroFilter.new.filtra_json(STDIN.read)
+
+figura_filtradas = PandocAbnt::FiguraFilter.new.filtra_json(quadros_filtrados)
 
 $stdout << PandocAbnt::ListaFilter.new.filtra_json(figura_filtradas)
 
