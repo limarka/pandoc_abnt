@@ -56,7 +56,7 @@ describe PandocAbnt::ListaFilter do
       end
     end
 
-    context "Lista numerica e itens finalizando com '.' e ';'", :wip do
+    context "Lista numerica e itens finalizando com '.' e ';'" do
       let(:input){"#{dir}/lista-numerica-termiando-com-ponto-e-virgula-mix.pandoc.json"}
       it "Troca todos internos termiando com '.' para ';' e finaliza o último com '.'" do
         f = PandocAbnt::ListaFilter.new
