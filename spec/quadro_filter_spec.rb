@@ -74,7 +74,7 @@ describe PandocAbnt::QuadroFilter, :quadro do
 
   describe "#quadro?" do
     context "quando nó contém quadro" do
-      let(:node){{"t"=>"Para","c"=>[{"t"=>"Str","c"=>"Quadro"},{"t"=>"Space"},{"t"=>"Str","c"=>"#perfil:"},{"t"=>"Space"},{"t"=>"Str","c"=>"Título"},{"t"=>"Space"},{"t"=>"Str","c"=>"do"},{"t"=>"Space"},{"t"=>"Str","c"=>"quadro"}]}}
+      let(:node){{"t"=>"Para","c"=>[{"t"=>"Str","c"=>"Quadro"},{"t"=>"Space"},{"t"=>"Str","c"=>"perfil:"},{"t"=>"Space"},{"t"=>"Str","c"=>"Título"},{"t"=>"Space"},{"t"=>"Str","c"=>"do"},{"t"=>"Space"},{"t"=>"Str","c"=>"quadro"}]}}
       it "returna true" do
         ff = PandocAbnt::QuadroFilter.new
         expect(ff.quadro?(node)).to be true

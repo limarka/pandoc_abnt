@@ -75,7 +75,7 @@ task :fixtures do
   Dir.chdir("spec/fixtures/files/quadros") do
     original = "quadro-com-id-titulo-e-fonte.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
-    system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
+    #system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}" # removido pq não funciona mais o parse com código fore do begin e and longtable.
     
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.apenas-tabela.md')} -o #{original.ext('.apenas-tabela.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.apenas-tabela.md')} -o #{original.ext('.apenas-tabela.tex')}"

@@ -61,6 +61,25 @@ Você pode utilizar [qualquer uma das sintaxes de tabela suportadas pelo pandoc]
 
 **OBS**: O comando `\label{}` é necessário para permitir refenciar a tabela no Latex.
 
+### Quadros
+
+Exemplo de sintaxe para criar Quadros:
+
+```markdown
+Quadro perfil: Perfil dos voluntários do experimento
+
+|Vol.|Formação acadêmica           |Experiência c/ Latex| Expeiência c/ Markdown|
+|:-:|:----------------------------:|:------------------:|:---------------------:|
+|1  |Ciência da Computação         |ShareLatex          |    Readme/Github      |
+|2  |Engenharia da Computação      |Viu prof. utilizando|         -             |
+|3  |Engenheiro elétrico (mestrando)|Utiliza para tudo  |         -             |
+
+Fonte: Autor.
+
+```
+
+**OBS**: Esse Quadro deve ser referencia no texto com `\autoref{perfil}`.
+
 ### Alíneas
 
 A ABNT especifica que o texto das seções podem ser divididos em *Alíneas*, na prática você PODE utilizar uma lista ordenada por letras para separar o conteúdo de uma seção:

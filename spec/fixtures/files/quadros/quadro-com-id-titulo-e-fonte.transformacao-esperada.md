@@ -1,6 +1,6 @@
-\begin{quadro}
-\caption{Perfil dos voluntários do experimento\label{perfil}}
+\renewcommand\LTcaptype{quadro}
 \begin{longtable}[]{@{}cccc@{}}
+\caption{Perfil dos voluntários do experimento\label{perfil}}\tabularnewline
 \toprule
 Vol. & Formação acadêmica & Experiência c/ Latex & Expeiência c/ Markdown\tabularnewline
 \midrule
@@ -9,6 +9,6 @@ Vol. & Formação acadêmica & Experiência c/ Latex & Expeiência c/ Markdown\t
 2 & Engenharia da Computação & Viu prof. utilizando & -\tabularnewline
 3 & Engenheiro elétrico (mestrando) & Utiliza para tudo & -\tabularnewline
 \bottomrule
+\caption*{Fonte: Autor.}
 \end{longtable}
-\legend{Fonte: Autor.}
-\end{quadro}
+\renewcommand\LTcaptype{table}

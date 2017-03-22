@@ -1,4 +1,4 @@
-Quadro #perfil: Perfil dos voluntários do experimento
+Quadro perfil: Perfil dos voluntários do experimento
 
 |Vol.|Formação acadêmica           |Experiência c/ Latex| Expeiência c/ Markdown|
 |:-:|:----------------------------:|:------------------:|:--------------------:|
