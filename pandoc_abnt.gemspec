@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.post_install_message <<-MSG
+  spec.post_install_message = <<-MSG
 ---------------------------------------------------------------------
 ATENÇÃO:
 Para utilização de Quadros é necessário que o modelo utilizado seja versão >= 0.4.1.
