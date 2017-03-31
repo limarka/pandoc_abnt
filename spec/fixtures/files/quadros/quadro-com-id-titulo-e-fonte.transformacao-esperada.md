@@ -1,5 +1,5 @@
 \renewcommand\LTcaptype{quadro}
-\begin{longtable}[]{@{}cccc@{}}
+\begin{longtable}[]{|c|l|r|c|}
 \caption{Perfil dos voluntários do experimento\label{perfil}}\tabularnewline
 \toprule
 Vol. & Formação acadêmica & Experiência c/ Latex & Expeiência c/ Markdown\tabularnewline

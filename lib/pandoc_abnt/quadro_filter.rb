@@ -8,7 +8,7 @@ module PandocAbnt
     
     def transforma_em_quadro(latex_code, id, titulo, fonte)
       #inicio = latex_code.lines[0..-2].join ""
-      begin_longtable = latex_code.lines[0].strip
+      begin_longtable = quadro_com_linhas_verticais(latex_code.lines[0].strip)
       tabela_codigo_interno_begin = latex_code.lines[1..-2].join("").strip
       abntex_code = <<LATEX
 \\renewcommand\\LTcaptype{quadro}
@@ -22,6 +22,23 @@ LATEX
       abntex_code.strip
     end
     
+    # Um quadro é uma tabela com linhas verticais
+    # Esse método especifica a utilização de linhas verticais
+    # entre as colunas
+    #
+    # Exemplo de entrada: \begin{longtable}[]{@{}clrc@{}}
+    # saída: \begin{longtable}[]{|c|l|r|c|}
+    #
+    def quadro_com_linhas_verticais(begin_table)
+      alinhamento=begin_table.match(/(?<begin>\\begin{longtable}\[.*\]){@{}(?<alinhamento>.*)@{}}/)[:alinhamento]
+      
+      qalign = "|"
+      alinhamento.split("").each do |c|
+        qalign << c + "|"
+      end
+      "\\begin{longtable}[]{#{qalign}}"
+    end
+      
     # Verifica se node é um parágrafo que inicia com "Fonte:"
     def fonte?(node)
     # {"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}
