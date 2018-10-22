@@ -5,19 +5,11 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :default => :spec
 
+
 desc "Cria/recria as fixtures"
 task :fixtures do
 
-  Dir.chdir("spec/fixtures/files/figuras") do
-
-    #originais = ["p-fig-caption-largura-p-fonte.md"]
-    #originais.each do |original|
-      #system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
-      #system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
-    #end
-
-  end
-
+  #FIXME remover original
 
   Dir.chdir("spec/fixtures/files/tabelas") do
 
@@ -32,17 +24,17 @@ task :fixtures do
     # criar original.ext('.abntex.tex') : Código esperado para o arquivo final (inclui fonte como legenda)
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.abntex.tex')} -o #{original.ext('.abntex.json')}"
   end
-  
+
   Dir.chdir("spec/fixtures/files/listas") do
     original = "lista-letras-termiando-com-ponto.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
-    
+
     original = "lista-letras-termiando-com-ponto-e-virgula.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
 
-    
+
     original = "lista-letras-termiando-com-ponto-e-virgula-mix.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
@@ -58,7 +50,7 @@ task :fixtures do
     original = "lista-nao-ordenada-mix.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
-    
+
     original = "lista-nao-ordenada-terminando-com-letra-mix.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
@@ -71,17 +63,17 @@ task :fixtures do
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
   end
-  
+
   Dir.chdir("spec/fixtures/files/quadros") do
     original = "quadro-com-id-titulo-e-fonte.md"
     system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
     #system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}" # removido pq não funciona mais o parse com código fore do begin e and longtable.
-    
+
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.apenas-tabela.md')} -o #{original.ext('.apenas-tabela.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.apenas-tabela.md')} -o #{original.ext('.apenas-tabela.tex')}"
-    
-    
-    
+
+
+
   end
-  
+
 end

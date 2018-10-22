@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 ATENÇÃO:
 Para utilização de Quadros é necessário que o modelo utilizado seja versão >= 0.4.1.
 
-A última versão do modelo pode ser baixada em: 
+A última versão do modelo pode ser baixada em:
 https://github.com/abntex/trabalho-academico-limarka/releases/latest
 ---------------------------------------------------------------------
 MSG
@@ -34,6 +34,8 @@ MSG
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "byebug"
   spec.add_development_dependency "github_changelog_generator"
-  
-  
+  spec.add_development_dependency "cucumber"
+  spec.add_development_dependency "aruba"
+
+
 end
