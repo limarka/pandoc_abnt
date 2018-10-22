@@ -36,6 +36,6 @@ MSG
   spec.add_development_dependency "github_changelog_generator"
   spec.add_development_dependency "cucumber"
   spec.add_development_dependency "aruba"
-
+  spec.add_development_dependency "relish"
 
 end

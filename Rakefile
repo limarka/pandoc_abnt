@@ -9,6 +9,13 @@ end
 
 task :default => [:spec, :cucumber]
 
+desc "Publica as features no site"
+task :relish do
+    sh "relish push pandoc-abnt"
+end
+
+task :release => [:relish]
+
 desc "Cria/recria as fixtures"
 task :fixtures do
 
