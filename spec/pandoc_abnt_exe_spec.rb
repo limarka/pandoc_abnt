@@ -1,11 +1,12 @@
 require "spec_helper"
 
 describe "exe/pandoc_abnt" do
-  
+
   context "Parágrafo com imagem, id, width e Fonte: no próximo parágrafo" do
-    let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte.md"}
-    let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte.tex"}
-    
+    let(:src){"spec/fixtures/files/figuras/p-fig-caption-p-fonte.md"}
+    let(:input){src}
+    let(:output){"#{src}.abntex.tex"}
+
     before do
       @abntex_code = `bundle exec pandoc -f markdown --to=latex --wrap=none #{input} --filter exe/pandoc_abnt`
     end
@@ -13,11 +14,11 @@ describe "exe/pandoc_abnt" do
       expect(@abntex_code).to eq(IO.read(output))
     end
   end
-  
+
   context "Parágrafo com imagem, id, width e Fonte: com citação no próximo parágrafo" do
-    let(:input){"spec/fixtures/files/p-fig-caption-width-p-fonte-cite.md"}
-    let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte-cite.tex"}
-    
+    let(:src){"spec/fixtures/files/p-fig-caption-width-p-fonte-cite.md"}
+    let(:input){src}
+    let(:output){"#{src}.abntex.tex"}
     before do
       @abntex_code = `bundle exec pandoc -f markdown --to=latex --wrap=none #{input} --filter exe/pandoc_abnt`
     end
@@ -29,7 +30,7 @@ describe "exe/pandoc_abnt" do
   context "Texto sem imagem" do
     let(:input){"spec/fixtures/files/texto-sem-figura.md"}
 #    let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte-cite.tex"}
-    
+
     before do
       @abntex_code = `bundle exec pandoc -f markdown --to=latex --wrap=none #{input} --filter exe/pandoc_abnt`
     end
@@ -40,7 +41,7 @@ describe "exe/pandoc_abnt" do
 
   context "Correção de lista" do
     let(:input){"spec/fixtures/files/listas/lista-composta.md"}
-    
+
     before do
       @abntex_code = `bundle exec pandoc -f markdown --to=latex --wrap=none #{input} --filter exe/pandoc_abnt`
     end
@@ -85,5 +86,5 @@ a. Lista ordenada3
     end
   end
 
-  
+
 end

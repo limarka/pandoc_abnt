@@ -3,25 +3,77 @@ require 'open3'
 
 module PandocAbnt
 
-  # Essa classe é responsável por 
+  # Essa classe é responsável por alterar a área sintática
+  # dos nós de imagem para um nó raw_tex com imgagem
+  # no formato do abntex2.
   # @see Trabalho#configuracao
   class FiguraFilter
 
-    def reformata_figura_latex(latex_code, fonte)
-    image_regex = /\\includegraphics.*/
-    caption_regex = /\\caption.*/
-    
-    figura_abntex = <<LATEX
+    def ler_escala(image_node)
+      # {"t"=>"Para", "c"=>[{"t"=>"Image", "c"=>[["id", [], [["escala", "30%"]]], [{"t"=>"Str", "c"=>"Título"}], ["imagem.png", "fig:"]]}]}
+      if image_node["c"][0]["c"][0][2].empty?
+        nil
+      else
+        if image_node["c"][0]["c"][0][2][0][0] == "escala"
+          image_node["c"][0]["c"][0][2][0][1]
+        else
+          nil
+        end
+      end
+    end
+    def atualiza_includegraphics(includegraphics, image_node)
+      # "\\includegraphics{imagem.png}"
+      escala = ler_escala(image_node)
+      result = nil
+      if escala
+        result = "\\includegraphics[scale=#{escala}]{#{includegraphics.split("{")[1]}"
+      else
+        result = includegraphics
+      end
+    end
+
+    def reformata_figura_latex(latex_code, fonte, image_node)
+      image_regex = /\\includegraphics.*/
+      caption_regex = /\\caption.*/
+      hypertarget_regex = /\\hypertarget.*/
+      includegraphics = atualiza_includegraphics("#{latex_code.match(image_regex)}", image_node)
+
+=begin
+Como vem:
+\begin{figure}
+\hypertarget{arquitetura}{%
+\centering
+\includegraphics{limarka-arquitetura.jpg}
+\caption{Arquitetura do Limarka}\label{arquitetura}
+}
+\end{figure}
+
+Como deve ser:
+
+\begin{figure}[htbp]
+\hypertarget{arquitetura}{%
+\caption{Arquitetura do Limarka}\label{arquitetura}
+\begin{center}
+\includegraphics[scale=0.4]{limarka-arquitetura.jpg}
+\end{center}
+}
+\legend{Fonte: Autor.}
+\end{figure}
+"""
+=end
+      figura_abntex = <<-LATEX
 \\begin{figure}[htbp]
+#{latex_code.match hypertarget_regex}
 #{latex_code.match caption_regex}
 \\begin{center}
-#{latex_code.match image_regex}
+#{includegraphics}
 \\end{center}
+}
 \\legend{#{fonte.strip}}
 \\end{figure}
 LATEX
     end
-    
+
     def reformata_tabela_latex(latex_code, fonte)
       inicio = latex_code.lines[0..-2].join ""
       abntex_code = <<LATEX
@@ -29,13 +81,13 @@ LATEX
 \\end{longtable}
 LATEX
     end
-    
+
     # Verifica se node é um parágrafo que inicia com "Fonte:"
     def fonte?(node)
     # {"t":"Para","c":[{"t":"Str","c":"Fonte:"},{"t":"Space","c":[]},{"t":"Str","c":"Autor."}]}
       node["t"] == "Para" and node["c"][0]["c"] == "Fonte:"
     end
-  
+
     # Verifica se node contém apenas uma imagem
     def imagem?(node)
 # {"t":"Para","c":[{"t":"Image","c":[["id",[],[["width","30%"]]],[{"t":"Str","c":"Título"}],["imagem.png","fig:"]]}]}
@@ -84,46 +136,46 @@ LATEX
       meta = tree["meta"]
       blocks = tree["blocks"]
       api = tree["pandoc-api-version"]
-      
+
       filtrados = []
       anterior = nil
-      
+
       if not blocks
         raise ArgumentError, "Problema no argumento passado: #{pandoc_json_tree}"
       end
-      
+
       blocks.each do |node|
-        
+
         if (fonte?(node) and imagem?(anterior)) then
           image_node = atualiza_imagem_width(anterior)
           imagem_latex = convert_to_latex({"blocks"=>[image_node], "pandoc-api-version" => api, "meta" => meta})
           fonte_latex = convert_to_latex({"blocks"=>[node], "pandoc-api-version" => api, "meta" => meta})
-          texcode = reformata_figura_latex(imagem_latex, fonte_latex)
-          raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode]}
-          
+          texcode = reformata_figura_latex(imagem_latex, fonte_latex, image_node)
+          raw_tex = {"t"=>"RawBlock","c"=>["tex",texcode.strip]}
+
           filtrados.pop # remote o anterior
           filtrados << raw_tex
         elsif (fonte?(node) and tabela?(anterior)) then
           tabela_latex = convert_to_latex({"blocks"=>[anterior], "pandoc-api-version" => api, "meta" => meta})
           fonte_latex = convert_to_latex({"blocks"=>[node], "pandoc-api-version" => api, "meta" => meta})
           texcode = reformata_tabela_latex(tabela_latex, fonte_latex)
-          raw_tex = {"t"=>"RawBlock","c"=>["latex",texcode.strip]}
-          
+          raw_tex = {"t"=>"RawBlock","c"=>["tex",texcode.strip]}
+
           filtrados.pop # remote o anterior
           filtrados << raw_tex
         else
           filtrados << node
         end
-        
+
         anterior = node
       end
-       
+
       JSON.generate({"blocks"=>filtrados, "pandoc-api-version" => api, "meta" => meta})
-      
-      
+
+
 #      result = <<-LATEX [{"unMeta":{}},[{"t":"RawBlock","c":["latex","\\begin{figure}[htbp]\n\\caption{Legenda da figura}\\label{id}\n\\begin{center}\n\\includegraphics[width=0.30000\\textwidth]{imagem.png}\n\\end{center}\n\\legend{Fonte: Autor.}\n\\end{figure}"]}]]
 
     end
-    
+
   end
 end
