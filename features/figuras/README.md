@@ -1,5 +1,3 @@
-# Utilização de figuras
-
 Segundo as normas da ABNT todas as figuras devem:
 
 - ser adicionadas com um título em cima
@@ -11,11 +9,10 @@ Segundo as normas da ABNT todas as figuras devem:
 
 Para inserir uma figura utilizamos a seguinte sintaxe:
 
-    ![Arquitetura do Limarka](limarka-arquitetura.jpg){#arquitetura escala=0.2}
+    ![Arquitetura do Limarka](limarka-arquitetura.jpg){#arquitetura}
 
     Fonte: Autor.
 
-E para referenciá-la no texto utilizamos os comandos apropriados em latex, 
-tais como:
+E para referenciá-la no texto utilizamos os comandos apropriados em latex, tais como:
 
     \autoref{arquitetura}
