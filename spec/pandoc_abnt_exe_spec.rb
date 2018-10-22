@@ -16,7 +16,7 @@ describe "exe/pandoc_abnt" do
   end
 
   context "Parágrafo com imagem, id, width e Fonte: com citação no próximo parágrafo" do
-    let(:src){"spec/fixtures/files/p-fig-caption-width-p-fonte-cite.md"}
+    let(:src){"spec/fixtures/files/figuras/p-fig-caption-width-p-fonte-cite.md"}
     let(:input){src}
     let(:output){"#{src}.abntex.tex"}
     before do
@@ -29,7 +29,6 @@ describe "exe/pandoc_abnt" do
 
   context "Texto sem imagem" do
     let(:input){"spec/fixtures/files/texto-sem-figura.md"}
-#    let(:output){"spec/fixtures/files/p-fig-caption-width-p-fonte-cite.tex"}
 
     before do
       @abntex_code = `bundle exec pandoc -f markdown --to=latex --wrap=none #{input} --filter exe/pandoc_abnt`

@@ -59,7 +59,7 @@ LATEX
 
 
   describe "#convert_to_latex" do
-    let(:src){"spec/fixtures/files/imagem.md"}
+    let(:src){"spec/fixtures/files/figuras/imagem.md"}
     let(:input){"#{src}.json"}
     let(:output){"#{src}.tex"}
     before do
@@ -145,13 +145,13 @@ LATEX
 
 
     context "figura com título, width e id, fonte separado por parágrafo", :figura do
-      let(:src){"spec/fixtures/files/p-fig-caption-width-p-fonte.md"}
+      let(:src){"spec/fixtures/files/figuras/p-fig-caption-width-p-fonte.md"}
       let(:input){"#{src}.json"}
-      let(:output){"#{src}.abnt.json"}
+      let(:output){"#{src}.abntex.json"}
       before do
         `pandoc #{src} -t json -o #{src}.json`
         `pandoc #{src} -t latex -o #{src}.tex`
-        `pandoc -f markdown+raw_tex #{src}.abnt.tex -t json -o #{src}.abnt.json`
+        `pandoc -f markdown+raw_tex #{src}.abntex.tex -t json -o #{output}`
       end
       it "Retorna árvore com código abntex2 incluído" do
         ff = PandocAbnt::FiguraFilter.new

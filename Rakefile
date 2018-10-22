@@ -6,23 +6,10 @@ RSpec::Core::RakeTask.new(:spec)
 task :default => :spec
 
 
-task :fixtures_figuras do
-  Dir.chdir("spec/fixtures/files/figuras") do
-
-    originais = ["p-fig-caption-largura-p-fonte.md", "p-fig-caption-p-fonte.md"]
-    originais.each do |original|
-      system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.pandoc.json')}"
-      system "pandoc -f markdown+raw_tex --wrap=none #{original} -o #{original.ext('.middle.tex')}"
-      #system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.transformacao-esperada.md')} -o #{original.ext('.transformacao-esperada.json')}"
-    end
-
-  end
-end
-
 desc "Cria/recria as fixtures"
 task :fixtures do
 
-
+  #FIXME remover original
 
   Dir.chdir("spec/fixtures/files/tabelas") do
 
