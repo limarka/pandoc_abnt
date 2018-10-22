@@ -1,10 +1,13 @@
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
+require "cucumber/rake/task"
 
 RSpec::Core::RakeTask.new(:spec)
+Cucumber::Rake::Task.new do |t|
+  t.cucumber_opts = %w{--format progress}
+end
 
-task :default => :spec
-
+task :default => [:spec, :cucumber]
 
 desc "Cria/recria as fixtures"
 task :fixtures do
@@ -71,9 +74,6 @@ task :fixtures do
 
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.apenas-tabela.md')} -o #{original.ext('.apenas-tabela.json')}"
     system "pandoc -f markdown+raw_tex --wrap=none #{original.ext('.apenas-tabela.md')} -o #{original.ext('.apenas-tabela.tex')}"
-
-
-
   end
 
 end
