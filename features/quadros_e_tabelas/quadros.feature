@@ -1,14 +1,14 @@
-# language: en
-Feature: Inserir Quadros conforme as normas da ABNT
+# language: pt
+Funcionalidade: Inserir Quadros conforme as normas da ABNT
 
 Os **Quadros**, por outro lado, são formados por linhas verticais e horizontais,
-devem ter todas suas extremidades fechadas e são mais utilizados para 
+devem ter todas suas extremidades fechadas e são mais utilizados para
 **dados qualitativos**.
 
 ![Exemplo de Quadro](https://github.com/abntex/limarka/wiki/imagens/quadros-perfil.png)
 
-Scenario: Incluindo um quadro com título e fonte
-  Given a file named "quadro.md" with:
+Cenário: Incluindo um quadro com título e fonte
+  Dado um arquivo chamado "quadro.md" contendo:
 """
 O \autoref{perfil} apresenta o perfil dos voluntários dos experimentos
 realizados.
@@ -24,8 +24,8 @@ Quadro perfil: Perfil dos voluntários do experimento
 Fonte: Autor.
 
 """
-  When I run `pandoc -t latex --filter pandoc_abnt quadro.md -o quadro-pandoc_abnt.tex`
-  Then the file named "quadro-pandoc_abnt.tex" should contain:
+  Dado eu executo `pandoc -t latex --filter pandoc_abnt quadro.md -o quadro-pandoc_abnt.tex`
+  Então o arquivo "quadro-pandoc_abnt.tex" deve conter:
 """
 O \autoref{perfil} apresenta o perfil dos voluntários dos experimentos
 realizados.

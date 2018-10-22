@@ -1,14 +1,14 @@
-# language: en
-Feature: Configurando escalas ao inserir figuras
+# language: pt
+Funcionalidade: Configurando escalas ao inserir figuras
 
     Ao inserir uma figura no texto as vezes desejamos aumentar ou diminuir o
     seu tamanho, chamamos esse recurso de alterar a escala da imagem.
-    
+
     A especificação da escala é realizada através do parâmetro `escala` na figura.
     O filtro irá gerar o código correspondente em Latex para realizar a operação.
 
-Scenario: Inserindo figura com parâmetro escala
-  Given a file named "figura.md" with:
+Cenário: Inserindo figura com parâmetro escala
+  Dado um arquivo chamado "figura.md" contendo:
 """
 A arquitetura do Limarka (ver \autoref{arquitetura}) é composto por um
 processador de formulário PDF, um template baseado no abntex2 e um
@@ -18,8 +18,8 @@ filtro pandoc-abnt.
 
 Fonte: Autor.
 """
-  When I run `pandoc -t latex --filter pandoc_abnt figura.md -o figura-pandoc_abnt.tex`
-  Then the file named "figura-pandoc_abnt.tex" should contain:
+  Quando eu executo `pandoc -t latex --filter pandoc_abnt figura.md -o figura-pandoc_abnt.tex`
+  Então o arquivo "figura-pandoc_abnt.tex" deve conter:
 """
 A arquitetura do Limarka (ver \autoref{arquitetura}) é composto por um
 processador de formulário PDF, um template baseado no abntex2 e um

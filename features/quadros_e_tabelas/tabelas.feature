@@ -1,12 +1,12 @@
-# language: en
-Feature: Inserir Tabelas conforme as normas da ABNT
+  # language: pt
+Funcionalidade: Inserir Tabelas conforme as normas da ABNT
 
-    As **Tabelas** são formadas por linhas verticais, devem manter suas bordas 
-    laterais abertas e geralmente são utilizadas para **dados quantitativos**. 
+    As **Tabelas** são formadas por linhas verticais, devem manter suas bordas
+    laterais abertas e geralmente são utilizadas para **dados quantitativos**.
 
 
-Scenario: Incluindo uma tabela com título e fonte
-  Given a file named "tabela.md" with:
+Cenário: Incluindo uma tabela com título e fonte
+  Dado um arquivo chamado "tabela.md" contendo:
 """
 Exemplo de tabela.
 
@@ -20,8 +20,8 @@ Exemplo de tabela.
 
 Fonte: Autor.
 """
-  When I run `pandoc -t latex --filter pandoc_abnt tabela.md -o tabela-pandoc_abnt.tex`
-  Then the file named "tabela-pandoc_abnt.tex" should contain:
+  Dado eu executo `pandoc -t latex --filter pandoc_abnt tabela.md -o tabela-pandoc_abnt.tex`
+  Então o arquivo "tabela-pandoc_abnt.tex" deve conter:
 """
 Exemplo de tabela.
 
