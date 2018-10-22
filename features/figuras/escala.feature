@@ -1,11 +1,9 @@
 # language: pt
 Funcionalidade: Configurando escalas ao inserir figuras
 
-    Ao inserir uma figura no texto as vezes desejamos aumentar ou diminuir o
-    seu tamanho, chamamos esse recurso de alterar a escala da imagem.
+Ao inserir uma figura no texto as vezes desejamos aumentar ou diminuir o seu tamanho, chamamos esse recurso de alterar a escala da imagem.
 
-    A especificação da escala é realizada através do parâmetro `escala` na figura.
-    O filtro irá gerar o código correspondente em Latex para realizar a operação.
+A especificação da escala é realizada através do parâmetro `escala` na figura. O filtro irá gerar o código correspondente em Latex para realizar a operação.
 
 Cenário: Inserindo figura com parâmetro escala
   Dado um arquivo chamado "figura.md" contendo:

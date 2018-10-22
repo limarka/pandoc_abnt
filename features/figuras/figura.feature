@@ -1,14 +1,9 @@
 # language: pt
 Funcionalidade: Inserir figura conforme as normas da ABNT
-    Segundo as normas da ABNT todas as figuras devem ser adicionadas
-    com um título em cima, e a fonte em baixo. E depois ela deve ser
-    referenciada no texto o mais próximo possível. **Nenhuma figura
-    pode ser inserida no texto sem ser referenciada**.
 
-    Esse filtro permite a inclusão de figuras, especificando a sua fonte
-    em baixo e posiciona a figura na página mais próximo do local esperado.
-    Para referenciar no texto, basta utilizar o comando latex corespondente
-    (tal como `\autoref`).
+Segundo as normas da ABNT todas as figuras devem ser adicionadas com um título em cima, e a fonte em baixo. E depois ela deve ser referenciada no texto o mais próximo possível. **Nenhuma figura pode ser inserida no texto sem ser referenciada**.
+
+Esse filtro permite a inclusão de figuras, especificando a sua fonte em baixo e posiciona a figura na página mais próximo do local esperado. Para referenciar no texto, basta utilizar o comando latex corespondente (tal como `\autoref`).
 
 Cenário: Incluindo uma figura com título e fonte
   Dado um arquivo chamado "figura.md" contendo:

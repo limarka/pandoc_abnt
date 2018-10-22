@@ -1,9 +1,7 @@
 # language: pt
 Funcionalidade: Automaticamente corrige pontuações de listas
 
-    Segundo as normas da ABNT todos os ítens das listas devem terminar com
-    ponto e vírgula (`;`) e apenas o último ítem deve terminar com ponto final
-    (`.`).
+Segundo as normas da ABNT todos os ítens das listas devem terminar com ponto e vírgula (`;`) e apenas o último ítem deve terminar com ponto final (`.`).
 
 Cenário: Adicionando pontuações
   Dado um arquivo chamado "texto.md" contendo:

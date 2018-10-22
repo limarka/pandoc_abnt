@@ -1,9 +1,9 @@
-  # language: pt
+# language: pt
 Funcionalidade: Inserir Tabelas conforme as normas da ABNT
 
-    As **Tabelas** são formadas por linhas verticais, devem manter suas bordas
-    laterais abertas e geralmente são utilizadas para **dados quantitativos**.
+As **Tabelas** são formadas por linhas verticais, devem manter suas bordas laterais abertas e geralmente são utilizadas para **dados quantitativos**.
 
+Você pode consultar a [documentação da syntaxe de tabelas em Markdown aqui](http://pandoc.org/MANUAL.html#tables).
 
 Cenário: Incluindo uma tabela com título e fonte
   Dado um arquivo chamado "tabela.md" contendo:

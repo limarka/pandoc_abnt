@@ -1,11 +1,25 @@
 # language: pt
 Funcionalidade: Inserir Quadros conforme as normas da ABNT
 
-Os **Quadros**, por outro lado, são formados por linhas verticais e horizontais,
-devem ter todas suas extremidades fechadas e são mais utilizados para
-**dados qualitativos**.
+Os **Quadros**, por outro lado, são formados por linhas verticais e horizontais, devem ter todas suas extremidades fechadas e são mais utilizados para **dados qualitativos**.
+
+Você pode consultar a [documentação da syntaxe de tabelas em Markdown aqui](http://pandoc.org/MANUAL.html#tables).
+
+Para criar um quadro utilizamos a seguinte sintaxe:
+
+        Quadro nome-do-quadro: título-do-quadro-aqui
+
+        O-quadro-aqui
+
+        Fonte: fonte-do-quadro
+
+Um quadro criado dessa forma pode ser referenciado com `\autoref{nome-do-quadro}`.
+
+A imagem a seguir apresenta como quadros podem ser renderizados no limarka:
 
 ![Exemplo de Quadro](https://github.com/abntex/limarka/wiki/imagens/quadros-perfil.png)
+
+**Importante**: O código criado dessa forma permite inclusive a geração de uma lista de Quadros diferente da lista de Tabelas [através dos modelos do abntex2](https://github.com/abntex/abntex2/issues/176).
 
 Cenário: Incluindo um quadro com título e fonte
   Dado um arquivo chamado "quadro.md" contendo:

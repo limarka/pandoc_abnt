@@ -1,14 +1,14 @@
 # language: pt
 Funcionalidade: Limitações do pandoc
 
-    O pandoc sem este filtro possui as seguintes limitações:
+O pandoc sem este filtro possui as seguintes limitações:
 
-        - Não coloca o título em cima
-        - Não permite colocar título e fonte simultaneamente
-        - Não permite escalar as imagens
-        - Não posiciona a figura o mais próximo possível por padrão.
+- Não coloca o título em cima
+- Não permite colocar título e fonte simultaneamente
+- Não permite escalar as imagens
+- Não posiciona a figura o mais próximo possível por padrão.
 
-    Esta spec apresenta o comportamento normal do pandoc, **sem o uso desse filtro**.
+Esta spec apresenta o comportamento normal do pandoc, **sem o uso desse filtro**.
 
 Cenário: Funcionamento normal do pandoc (sem pandoc_abnt)
   Dado um arquivo chamado "figura.md" contendo:
