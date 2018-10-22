@@ -38,7 +38,7 @@ Para adicionar uma fonte a figura ou tabela, basta adicionar no parágrafo segui
 Exemplo de Figura:
 
 ```markdown
-![Título](imagem.png){#id largura=30%}
+![Título](imagem.png){#id escala=0.3}
 
 Fonte: Autor.
 ```
