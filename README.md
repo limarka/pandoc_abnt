@@ -1,33 +1,25 @@
 # pandoc_abnt
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pandoc_abnt`. To experiment with that code, run `bin/console` for an interactive prompt.
-
 Filtro pandoc para elaborar documentos de acordo com as normas da abnt.
 
+## Instalação
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'pandoc_abnt'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install pandoc_abnt
 
-Requer pandoc `v1.19.2.1`.
+Requer pandoc `v1.19.2.1` ou superior.
 
-## Usage
+## Utilização
 
 O pandoc_abnt foi elaborado para ser utilizado com o [limarka](https://github.com/abntex/limarka), mas projetado para ser utilizado separadamente:
 
-    pandoc --wrap=none -s --filter exe/pandoc_abnt documento.md -o documento.pdf
+    pandoc --wrap=none -s --filter pandoc_abnt documento.md -o documento.pdf
+
+## Especificação técnica
+
+[A especificação técnica do panco_abnt é baseada em testes automatizados](https://relishapp.com/edusantana/pandoc-abnt/docs) e sempre retrata o funcionamento real e testado da ferramenta.
+
+**AVISO**: A documentação abaixo pode está desatualizada. Consulte a especificação acima para obter informações mais confiáveis.
 
 ## Funcionalidades
 
