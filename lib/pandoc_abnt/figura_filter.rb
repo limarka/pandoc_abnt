@@ -65,9 +65,8 @@ Como deve ser:
 \\begin{figure}[htbp]
 #{latex_code.match hypertarget_regex}
 #{latex_code.match caption_regex}
-\\begin{center}
+\\centering
 #{includegraphics}
-\\end{center}
 }
 \\legend{#{fonte.strip}}
 \\end{figure}
