@@ -57,7 +57,7 @@ Como deve ser:
 \includegraphics[scale=0.4]{limarka-arquitetura.jpg}
 \end{center}
 }
-\legend{Fonte: Autor.}
+\fonte{Fonte: Autor.}
 \end{figure}
 """
 =end
@@ -68,7 +68,7 @@ Como deve ser:
 \\centering
 #{includegraphics}
 }
-\\legend{#{fonte.strip}}
+\\fonte{#{fonte.strip}}
 \\end{figure}
 LATEX
     end
@@ -172,7 +172,7 @@ LATEX
       JSON.generate({"blocks"=>filtrados, "pandoc-api-version" => api, "meta" => meta})
 
 
-#      result = <<-LATEX [{"unMeta":{}},[{"t":"RawBlock","c":["latex","\\begin{figure}[htbp]\n\\caption{Legenda da figura}\\label{id}\n\\begin{center}\n\\includegraphics[width=0.30000\\textwidth]{imagem.png}\n\\end{center}\n\\legend{Fonte: Autor.}\n\\end{figure}"]}]]
+#      result = <<-LATEX [{"unMeta":{}},[{"t":"RawBlock","c":["latex","\\begin{figure}[htbp]\n\\caption{Legenda da figura}\\label{id}\n\\begin{center}\n\\includegraphics[width=0.30000\\textwidth]{imagem.png}\n\\end{center}\n\\fonte{Fonte: Autor.}\n\\end{figure}"]}]]
 
     end
 

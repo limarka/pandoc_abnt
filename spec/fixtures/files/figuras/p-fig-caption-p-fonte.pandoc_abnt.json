@@ -1,1 +1,1 @@
-{"blocks":[{"t":"RawBlock","c":["tex","\\begin{figure}[htbp]\n\\hypertarget{id}{%\n\\caption{Título}\\label{id}\n\\begin{center}\n\\includegraphics{imagem.png}\n\\end{center}\n}\n\\legend{Fonte: Autor.}\n\\end{figure}"]}],"pandoc-api-version":[1,17,5,1],"meta":{}}
+{"blocks":[{"t":"RawBlock","c":["tex","\\begin{figure}[htbp]\n\\hypertarget{id}{%\n\\caption{Título}\\label{id}\n\\begin{center}\n\\includegraphics{imagem.png}\n\\end{center}\n}\n\\fonte{Fonte: Autor.}\n\\end{figure}"]}],"pandoc-api-version":[1,17,5,1],"meta":{}}

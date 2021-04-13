@@ -5,5 +5,5 @@
 \includegraphics{imagem.png}
 \end{center}
 }
-\legend{Fonte: Autor.}
+\fonte{Fonte: Autor.}
 \end{figure}

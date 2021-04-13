@@ -30,6 +30,6 @@ filtro pandoc-abnt.
 \includegraphics[scale=0.2]{limarka-arquitetura.jpg}
 \end{center}
 }
-\legend{Fonte: Autor.}
+\fonte{Fonte: Autor.}
 \end{figure}
 """
